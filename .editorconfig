@@ -1,0 +1,17 @@
+# EditorConfig (https://editorconfig.org)
+
+# Top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+# Set default charset to UTF-8
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Set indentation to 2 spaces [HTML and JS]
+[*.{html,js}]
+indent_size = 2
+indent_style = space
