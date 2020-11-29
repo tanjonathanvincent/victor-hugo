@@ -1,32 +1,24 @@
-const merge = require("webpack-merge");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const { merge } = require("webpack-merge");
 
-const common = require("./webpack.common.js");
+const common = require("./webpack.common");
 
 module.exports = merge(common, {
   mode: "production",
 
   output: {
-    filename: "[name].[hash:5].js",
-    chunkFilename: "[id].[hash:5].css"
+    path: path.join(process.cwd(), "dist"),
+    filename: "js/[name].[contenthash:6].js",
+    chunkFilename: "[id].[contenthash:6].js",
+    publicPath: "/",
+    assetModuleFilename: "assets/[name][ext]",
   },
 
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      }),
-
-      new MiniCssExtractPlugin({
-        filename: "[name].[hash:5].css",
-        chunkFilename: "[id].[hash:5].css"
-      }),
-
-      new OptimizeCSSAssetsPlugin({})
-    ]
-  }
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/[name].[contenthash:6].css",
+      chunkFilename: "[name].[contenthash:6].css",
+    }),
+  ],
 });

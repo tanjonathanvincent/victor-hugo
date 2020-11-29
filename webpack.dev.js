@@ -1,40 +1,51 @@
-const merge = require("webpack-merge");
-const path = require("path");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const webpack = require("webpack");
+const { merge } = require("webpack-merge");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const common = require("./webpack.common");
 
 module.exports = merge(common, {
   mode: "development",
+  devtool: "inline-source-map",
 
   output: {
-    filename: "[name].js",
-    chunkFilename: "[id].css"
+    path: path.join(process.cwd(), "dist"),
+    filename: "js/[name].js",
+    chunkFilename: "[id].js",
+    publicPath: "/",
+    assetModuleFilename: "assets/[name][ext]",
   },
 
   devServer: {
-    port: process.env.PORT || 3000,
+    port: 3000,
     contentBase: path.join(process.cwd(), "./dist"),
     watchContentBase: true,
     quiet: false,
     open: true,
     historyApiFallback: {
-      rewrites: [{from: /./, to: "404.html"}]
-    }
+      rewrites: [
+        {
+          from: /./,
+          to: "404.html",
+        },
+      ],
+    },
+    publicPath: "./dist",
+    writeToDisk: true,
   },
 
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [
-        "dist/**/*.js",
-        "dist/**/*.css",
-        "site/content/webpack.json"
-      ]}),
+      cleanOnceBeforeBuildPatterns: ["dist/**/*.js", "dist/**/*.css", "site/content/webpack.json"],
+    }),
 
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ]
+      filename: "css/[name].css",
+      chunkFilename: "[id].css",
+    }),
+
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 });
