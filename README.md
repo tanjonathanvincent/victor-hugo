@@ -1,6 +1,6 @@
 # Victor Hugo
 
-**A Hugo boilerplate for creating truly epic websites**
+## A Hugo boilerplate for creating truly epic websites
 
 This is a boilerplate for using [Hugo](https://gohugo.io/) as a static site generator and [Webpack](https://webpack.js.org/) as your asset pipeline.
 
@@ -114,3 +114,63 @@ You can also click this button:
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify/victor-hugo)
 
 ## Enjoy!! 😸
+
+### Notes
+
+This project has not been updated by the Netlify team for a long time. I really thought they were going to update when
+Webpack v5 was released. If you are going to clone `master` and run `npm outdated` or `yarn outdated`, you will encounter
+a lot of dependencies in red. The project has Yarn and NPM locks out of the box which is a big no-no. A project can
+either have NPM or Yarn locks but not both. This branch uses Yarn v2 with Plug n Play loose mode enabled but I've included
+NPM and Yarn v2 in their respective branches.
+
+Dependencies are updated to their latest versions and since this is Webpack v5, I've removed plugins or loaders that
+Webpack can do out of the box. `uglifyjs-webpack-plugin` is an example. Experimental assets handling is enabled in lieu
+of `file-loader`, `url-loader`, and `copy-webpack-plugin` but you can disable the it and bring back the 2 loaders.
+
+### Dependencies updated
+
+- `@babel/core` (7.12.3 -> 7.12.9)
+- `@babel/preset-env` (7.12.1 -> 7.12.7)
+- `assets-webpack-plugin` (3.9.7 -> 6.0.4)
+- `babel-loader` (8.1.0 -> 8.2.2)
+- `cross-env` (5.2.0 -> 7.0.2)
+- `css-loader` (3.5.3 -> 5.0.1)
+- `eslint` (6.7.2 -> 7.14.0)
+- `exports-loader` (0.7.0 -> 1.1.1)
+- `hugo-bin` (0.63.0 -> 0.67.0)
+- `imports-loader` (0.8.0 -> 1.2.0)
+- `mini-css-extract-plugin` (0.12.0 ->1.3.1)
+- `node-sass` (4.13.1 -> 5.0.0)
+- `postcss-import` (12.0.1 -> 13.0.0)
+- `postcss-loader` (3.0.0 -> 4.1.0)
+- `rimraf` (3.0.0 -> 3.0.2)
+- `sass-loader` (8.0.0 -> 10.1.0)
+- `style-loader` (1.3.0 -> 2.0.0)
+- `webpack` (4.41.5 -> 5.9.0)
+- `webpack-cli` (3.3.12 -> 4.2.0)
+- `webpack-merge` (4.1.4 -> 5.4.0)
+- `whatwg-fetch` (3.0.0 -> 3.5.0)
+
+### Dependencies Removed
+
+- `@babel/register` (Webpack v5 only supports CommonJS for their config files)
+- `babel-loader` (Deprecated. Replaced with `@babel/eslint-parser`)
+- `copy-webpack-plugin` (Experimental asset handling is enabled)
+- `fancy-log` (Residual dependency from Gulp)
+- `file-loader` (Experiemental asset handling is enabled)
+- `npm-run-all` (Replaced with `concurrently`. May not be as robust but Yarn v2 hates glob patterns)
+- `optimized-css-assets-webpack-plugin` (Replaced with `cssnano`. Configured in PostCSS)
+- `plugin-error` (Residual dependency from Gulp)
+- `uglifyjs-webpack-plugin` (Webpack uses the terser plugin to minify js files)
+- `url-loader` (Experimental asset handling is enabled)
+- `natives` (Deprecated)
+
+### Dependencies Added
+
+- `@babel/eslint-plugin` (To supplement the Babel parser)
+- `eslint-config-google` (Uses shared configuration from Google)
+- `eslint-config-prettier` (Eslint displays errors from Prettier)
+- `eslint-plugin-json-format` (Formats your JSON files correctly)
+- `eslint-plugin-prettier` (So that Eslint and Prettier can work together)
+- `postcss` (To aid `postcss-loader`)
+- `prettier` (Styles your code)
